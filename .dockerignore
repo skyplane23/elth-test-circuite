@@ -1,0 +1,29 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Node modules
+node_modules
+npm-debug.log
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation
+README.md
+LICENSE
+
+# Development files
+.vscode
+.idea
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.map

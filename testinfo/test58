@@ -1,0 +1,1 @@
+varI1,varI2,varI3,varI4,varI5;I1,I2,I3,I4,I5;((varI1)-(varI2)),((varI1)-(varI2)+(varI5)),((varI2)-(varI4)-(varI5)-(varI3)),((varI4)+(varI5)+(varI3)),((varI4)+(varI5))

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eequiz-app
+    ports:
+      - "8080:80"
+    volumes:
+      # Uncomment the line below for development (live reload)
+      # - .:/var/www/html
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Bucharest
