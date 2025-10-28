@@ -2,6 +2,8 @@
 
 EEquiz is an interactive quiz platform for electrical engineering circuit and graph problems. The application randomly generates problems with different variable values and validates user answers.
 
+**[🚀 Live Demo](https://skyplane23.github.io/elth-test-circuite/)**
+
 ## Project Versions
 
 This project has **two versions** that serve different deployment scenarios:
