@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EEquiz - Raspunsuri</title>
+
+    
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="css/resume.min.css" rel="stylesheet">
+    <style>
+        .correct {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .score-summary {
+            font-size: 1.5rem;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+    </style>
+
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">
+        <span class="d-block d-lg-none">Start Bootstrap</span>
+        <span class="d-none d-lg-block">
+          <a href="index.html"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/profile.png" alt=""></a>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Acasa</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="testecircuite.html?range=1,10&nr_ex=10">Teste circuite</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="testegrafuri.html?range=1,10&nr_ex=10">Teste grafuri</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+      <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="experience">
+        <div class="my-auto">
+          <h2 class="mb-5">Raspunsuri</h2>
+          
+          <div id="resultsContainer">
+            <!-- Results will be inserted here by JavaScript -->
+          </div>
+          
+          <div class="mt-4">
+            <a href="testecircuite.html?range=1,10&nr_ex=10" class="btn btn-primary mr-2">Încearcă teste circuite</a>
+            <a href="testegrafuri.html?range=1,10&nr_ex=3" class="btn btn-primary">Încearcă teste grafuri</a>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+ 
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/resume.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultsContainer = document.getElementById('resultsContainer');
+            
+            // Get results from sessionStorage
+            const storedResults = sessionStorage.getItem('testResults');
+            
+            console.log('Stored results:', storedResults); // Debug log
+            
+            if (!storedResults) {
+                resultsContainer.innerHTML = `
+                    <div class="alert alert-warning">
+                        <h4>Nu există rezultate</h4>
+                        <p>Nu s-au găsit rezultate. Te rugăm să încerci un test mai întâi.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            try {
+                const data = JSON.parse(storedResults);
+                const { results, correctCount, totalCount } = data;
+                
+                console.log('Parsed data:', data); // Debug log
+            
+            // Display score summary
+            const percentage = totalCount > 0 ? ((correctCount / totalCount) * 100).toFixed(1) : 0;
+            const scoreClass = percentage >= 70 ? 'text-success' : (percentage >= 50 ? 'text-warning' : 'text-danger');
+            
+            let html = `
+                <div class="score-summary ${scoreClass}">
+                    <strong>Scor final: ${correctCount} / ${totalCount} (${percentage}%)</strong>
+                </div>
+            `;
+            
+            // Display detailed results for each problem
+            results.forEach((problem) => {
+                html += `
+                    <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                        <div class="resume-content mr-auto">
+                            <h3 class="mb-0">Problema ${problem.testNumber}</h3>
+                `;
+                
+                problem.results.forEach((result) => {
+                    const statusClass = result.isCorrect ? 'correct' : 'incorrect';
+                    const statusIcon = result.isCorrect ? '✓' : '✗';
+                    const statusText = result.isCorrect ? 'Corect!' : 'Incorect';
+                    
+                    html += `
+                        <div class="mb-2">
+                            <p>
+                                <strong>${result.unknown}:</strong><br>
+                                Răspuns corect: <span class="correct">${Number.isFinite(result.correctAnswer) ? result.correctAnswer.toFixed(2) : 'N/A'}</span><br>
+                                Răspunsul tău: <span class="${statusClass}">${Number.isFinite(result.userAnswer) ? result.userAnswer.toFixed(2) : 'N/A'}</span>
+                                <span class="${statusClass}">${statusIcon} ${statusText}</span>
+                            </p>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultsContainer.innerHTML = html;
+            
+            // Clear sessionStorage after displaying results
+            // Uncomment the line below if you want to clear results after viewing
+            // sessionStorage.removeItem('testResults');
+                
+            } catch (error) {
+                console.error('Error parsing results:', error);
+                resultsContainer.innerHTML = `
+                    <div class="alert alert-danger">
+                        <h4>Eroare la afișarea rezultatelor</h4>
+                        <p>A apărut o eroare la procesarea rezultatelor. Te rugăm să încerci din nou.</p>
+                        <small>Detalii eroare: ${error.message}</small>
+                    </div>
+                `;
+            }
+        });
+    </script>
+
+  </body>
+
+</html>
