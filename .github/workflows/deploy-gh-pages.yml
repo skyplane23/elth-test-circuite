@@ -1,0 +1,29 @@
+name: Deploy static site to gh-pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-gh-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Deploy gh-pages/ folder to gh-pages branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages            # The branch the action should deploy to
+          folder: gh-pages            # The folder to deploy (relative to repo root)
+          clean: true                 # Remove files not in the latest commit
+          single-commit: true         # Keep history minimal
+          commit-message: Deploy gh-pages from ${{ github.sha }}
