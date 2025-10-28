@@ -1,70 +1,214 @@
-# [Start Bootstrap - Resume](https://startbootstrap.com/template-overviews/resume/)
+# EEquiz - Electrical Engineering Quiz Platform
 
-[Resume](https://startbootstrap.com/template-overviews/resume/) is a resume and CV theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features a fixed sidebar with content sections to build a simple, yet elegant resume.
+EEquiz is an interactive quiz platform for electrical engineering circuit and graph problems. The application randomly generates problems with different variable values and validates user answers.
 
-## Preview
+## Project Versions
 
-[![Resume Preview](https://startbootstrap.com/assets/img/templates/resume.jpg)](https://blackrockdigital.github.io/startbootstrap-resume/)
+This project has **two versions** that serve different deployment scenarios:
 
-**[View Live Preview](https://blackrockdigital.github.io/startbootstrap-resume/)**
+### 1. PHP Version (Root Directory)
+- **Location**: Root directory (`/`)
+- **Technology**: PHP backend with server-side rendering
+- **Files**: `testecircuite.php`, `testegrafuri.php`, `raspunsuri.php`
+- **Test Data**: `testinfo/` folder (plain text files)
+- **SVG Files**: `testsvg/` folder
+- **Deployment**: Docker container with Nginx
 
-## Status
+### 2. Static HTML Version (GitHub Pages)
+- **Location**: `gh-pages/` folder
+- **Technology**: Pure HTML/JavaScript (client-side)
+- **Files**: `testecircuite.html`, `testegrafuri.html`, `raspunsuri.html`
+- **Test Data**: `gh-pages/data/testdata.js` (JavaScript)
+- **SVG Files**: `gh-pages/testsvg/` folder
+- **Deployment**: GitHub Pages or any static hosting
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/BlackrockDigital/startbootstrap-resume/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-resume.svg)](https://www.npmjs.com/package/startbootstrap-resume)
-[![Build Status](https://travis-ci.org/BlackrockDigital/startbootstrap-resume.svg?branch=master)](https://travis-ci.org/BlackrockDigital/startbootstrap-resume)
-[![dependencies Status](https://david-dm.org/BlackrockDigital/startbootstrap-resume/status.svg)](https://david-dm.org/BlackrockDigital/startbootstrap-resume)
-[![devDependencies Status](https://david-dm.org/BlackrockDigital/startbootstrap-resume/dev-status.svg)](https://david-dm.org/BlackrockDigital/startbootstrap-resume?type=dev)
+## Getting Started
 
-## Download and Installation
+### Running the PHP Version
 
-To begin using this template, choose one of the following options to get started:
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/template-overviews/resume/)
-* Install via npm: `npm i startbootstrap-resume`
-* Clone the repo: `git clone https://github.com/BlackrockDigital/startbootstrap-resume.git`
-* [Fork, Clone, or Download on GitHub](https://github.com/BlackrockDigital/startbootstrap-resume)
+#### Prerequisites
+- Docker and Docker Compose installed on your system
 
-## Usage
+#### Steps
 
-### Basic Usage
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd elth-test-circuite
+   ```
 
-After downloading, simply edit the HTML and CSS files included with the template in your favorite text editor to make changes. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
+2. **Start the Docker container**
+   ```bash
+   docker-compose up -d
+   ```
 
-### Advanced Usage
+3. **Access the application**
+   - Open your browser and navigate to: `http://localhost:8080`
+   - Navigate to:
+     - Circuit Tests: `http://localhost:8080/testecircuite.php?range=1,10&nr_ex=10`
+     - Graph Tests: `http://localhost:8080/testegrafuri.php?range=1,10&nr_ex=10`
 
-After installation, run `npm install` and then run `gulp dev` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `gulpfile.js` to see which tasks are included with the dev environment.
+4. **Stop the container**
+   ```bash
+   docker-compose down
+   ```
 
-#### Gulp Tasks
+#### URL Parameters
+- `range`: Value range for variables (e.g., `1,10` generates values between 1 and 10)
+- `nr_ex`: Number of problems to generate (e.g., `10` generates 10 problems)
 
-- `gulp` the default task that builds everything
-- `gulp dev` browserSync opens the project in your default browser and live reloads when changes are made
-- `gulp sass` compiles SCSS files into CSS
-- `gulp minify-css` minifies the compiled CSS file
-- `gulp minify-js` minifies the themes JS file
-- `gulp copy` copies dependencies from node_modules to the vendor directory
+### Running the Static HTML Version
 
-## Bugs and Issues
+#### Option 1: Local Development
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/BlackrockDigital/startbootstrap-resume/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/resume/).
+1. **Navigate to the gh-pages folder**
+   ```bash
+   cd gh-pages
+   ```
 
-## Custom Builds
+2. **Start a local web server**
+   ```bash
+   # Using Python 3
+   python -m http.server 8000
+   
+   # Or using PHP
+   php -S localhost:8000
+   
+   # Or using Node.js (with npx)
+   npx http-server -p 8000
+   ```
 
-You can hire Start Bootstrap to create a custom build of any template, or create something from scratch using Bootstrap. For more information, visit the **[custom design services page](https://startbootstrap.com/bootstrap-design-services/)**.
+3. **Access the application**
+   - Open your browser and navigate to: `http://localhost:8000`
+   - Navigate to:
+     - Circuit Tests: `http://localhost:8000/testecircuite.html?range=1,10&nr_ex=10`
+     - Graph Tests: `http://localhost:8000/testegrafuri.html?range=1,10&nr_ex=10`
 
-## About
+#### Option 2: GitHub Pages Deployment
 
-Start Bootstrap is an open source library of free Bootstrap templates and themes. All of the free templates and themes on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
+1. Push the `gh-pages` folder content to the `gh-pages` branch
+2. Enable GitHub Pages in your repository settings
+3. Access via: `https://yourusername.github.io/repository-name/`
 
-* https://startbootstrap.com
-* https://twitter.com/SBootstrap
+## Adding New Tests
 
-Start Bootstrap was created by and is maintained by **[David Miller](http://davidmiller.io/)**, Owner of [Blackrock Digital](http://blackrockdigital.io/).
+### Adding Tests to the PHP Version
 
-* http://davidmiller.io
-* https://twitter.com/davidmillerskt
-* https://github.com/davidtmiller
+1. **Create test data file**
+   - Navigate to `testinfo/` folder
+   - Create a new file named `testN` (where N is the next number)
+   - Format: `variables;unknowns;formulas`
+   
+   **Example** (`testinfo/test64`):
+   ```
+   varI,varR;u;((varR)*(varI))
+   ```
+   
+   This defines:
+   - **Variables**: `varI`, `varR` (will get random values)
+   - **Unknown**: `u` (what the user must calculate)
+   - **Formula**: `u = varR × varI` (Ohm's Law)
 
-Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+2. **Create SVG diagram**
+   - Navigate to `testsvg/` folder
+   - Create a file named `testN-1.svg` (matching the test number)
+   - Include variable placeholders in the SVG using the variable names (e.g., `varI`, `varR`)
+   - The PHP script will automatically replace these with generated values
+
+3. **Update test range in code**
+   - Open `testecircuite.php` (for circuits) or `testegrafuri.php` (for graphs)
+   - Find the line: `$file = range(1, 53);`
+   - Update the range to include your new test: `$file = range(1, 64);`
+
+### Adding Tests to the Static HTML Version
+
+1. **Add test data to JavaScript file**
+   - Open `gh-pages/data/testdata.js`
+   - Add a new test object to the appropriate array (`CIRCUIT_TESTS` or `GRAPH_TESTS`)
+   
+   **Example**:
+   ```javascript
+   {
+     id: 64,
+     variables: [
+       "varI",
+       "varR"
+     ],
+     unknowns: [
+       "u"
+     ],
+     formulas: [
+       "((varR)*(varI))"
+     ]
+   }
+   ```
+
+2. **Create SVG diagram**
+   - Navigate to `gh-pages/testsvg/` folder
+   - Create a file named `test64-1.svg` (matching the ID)
+   - Include variable placeholders in the SVG using the variable names
+
+3. **Update test range in code**
+   - Open `gh-pages/testecircuite.html` (for circuits) or `gh-pages/testegrafuri.html` (for graphs)
+   - Find the line: `const availableTests = CIRCUIT_TESTS.filter(t => t.id >= 1 && t.id <= 53);`
+   - Update the range: `const availableTests = CIRCUIT_TESTS.filter(t => t.id >= 1 && t.id <= 64);`
+
+## Test Data Format
+
+### Variables
+Comma-separated list of variable names that will receive random values from the specified range.
+
+### Unknowns
+Comma-separated list of variables that the user must calculate.
+
+### Formulas
+Mathematical expressions using the variables. Supported operations:
+- Addition: `+`
+- Subtraction: `-`
+- Multiplication: `*`
+- Division: `/`
+- Parentheses: `(` `)`
+
+**Examples**:
+- Ohm's Law: `((varR)*(varI))`
+- Voltage divider: `((varR1*varU)/(varR1+varR2))`
+- Complex: `(((varR1*varR2)/(varR1+varR2))*varI)`
+
+## Project Structure
+
+```
+elth-test-circuite/
+├── testecircuite.php        # PHP circuit tests
+├── testegrafuri.php          # PHP graph tests
+├── raspunsuri.php            # PHP answer validation
+├── testinfo/                 # PHP test data (text files)
+├── testsvg/                  # PHP SVG diagrams
+├── docker-compose.yml        # Docker configuration
+├── Dockerfile                # Docker image definition
+├── gh-pages/                 # Static HTML version
+│   ├── testecircuite.html    # HTML circuit tests
+│   ├── testegrafuri.html     # HTML graph tests
+│   ├── raspunsuri.html       # HTML answer display
+│   ├── data/
+│   │   └── testdata.js       # JavaScript test data
+│   ├── testsvg/              # HTML SVG diagrams
+│   └── js/
+│       ├── utils.js          # Utility functions
+│       └── resume.js         # UI scripts
+└── vendor/                   # Bootstrap & jQuery libraries
+```
+
+## Development Notes
+
+- Both versions use the same Bootstrap template for consistent UI
+- SVG files must be numbered to match test IDs (e.g., `test1-1.svg` for test 1)
+- Variable names in SVG files are replaced at runtime with generated values
+- The system automatically handles division by zero and generates valid test cases
+- Answer validation uses a tolerance of ±0.01 for floating-point comparison
+
+## Template Credits
+
+This project is built on the [Start Bootstrap - Resume](https://startbootstrap.com/template-overviews/resume/) template created by [Start Bootstrap](http://startbootstrap.com/).
 
 ## Copyright and License
 
