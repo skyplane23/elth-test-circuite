@@ -195,13 +195,10 @@ function replaceSVGVariables(svgContent, varValues) {
     let modifiedSVG = svgContent;
     
     // Sort variable names by length (longest first) to avoid partial matches
-    const sortedVarNames = Object.keys(varValues).sort((a, b) => b.length - a.length);
-    
+    const sortedVarNames = Object.keys(varValues).sort((a, b) => b.length - a.length);    
     sortedVarNames.forEach(varName => {
         // Escape special regex characters and use word boundary for exact match
-        const escapedVarName = varName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp('\\b' + escapedVarName + '\\b', 'g');
-        modifiedSVG = modifiedSVG.replace(regex, varValues[varName]);
+        modifiedSVG = modifiedSVG.replace(varName, varValues[varName]);
     });
     
     return modifiedSVG;
