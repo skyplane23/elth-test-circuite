@@ -206,6 +206,20 @@ elth-test-circuite/
 - The system automatically handles division by zero and generates valid test cases
 - Answer validation uses a tolerance of ±0.01 for floating-point comparison
 
+## Project Information
+
+**EEquiz** - Aplicație pentru exersarea cunoștințelor de electrotehnică
+
+**SCSS-ELTH MAI 2018**
+
+### Realizatori (Creators)
+- Liviu-Nicolae Moraru
+- Andreea-Diana Oltean
+- Stefan Vodita
+
+### Profesor Coordonator (Coordinating Professor)
+- Gabriela Ciuprina
+
 ## Template Credits
 
 This project is built on the [Start Bootstrap - Resume](https://startbootstrap.com/template-overviews/resume/) template created by [Start Bootstrap](http://startbootstrap.com/).
